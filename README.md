@@ -9,7 +9,7 @@ the main idea is simple :
 and repeat this for a long time, but beware. this game may or may not be a horror game.
 
 # Info for the silly nerds 
-this game was made in haxe using haxeflixel, you can check the 2 out below in "# Info for the silly normies" section
+this game was made in haxe using haxeflixel, you can check the 2 out below in https://gitlab.com/aaa.dev/cats/-/edit/main/README.md?ref_type=heads#L15 
 compiling shouldn't be a problem if you have all the dependencies. 
 
 # Info for the silly normies
