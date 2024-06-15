@@ -1,6 +1,5 @@
 package;
 
-import AssetPaths;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.util.FlxSave;

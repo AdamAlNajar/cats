@@ -10,7 +10,7 @@ class Player extends FlxSprite {
 
 	public function new(x:Float = 0, y:Float = 0) {
 		super(x, y);
-		loadGraphic("assets/images/player.png", true, 16, 32);
+		loadGraphic("assets/images/player.png", true, 16, 24);
 
 		setFacingFlip(LEFT, true, false);
 		setFacingFlip(RIGHT, false, false);
@@ -18,12 +18,12 @@ class Player extends FlxSprite {
 		setSize(8, 8);
 		offset.set(4, 8);
 
-		animation.add("d_idle", [0]);
-		animation.add("lr_idle", [4]);
-		animation.add("u_idle", [8]);
-		animation.add("d_walk", [0, 1, 2, 3], 6);
-		animation.add("lr_walk", [4, 5, 6, 7], 6);
-		animation.add("u_walk", [8, 9, 10, 11], 6);
+		animation.add("d_idle", [4]);
+		animation.add("lr_idle", [8]);
+		animation.add("u_idle", [0]);
+		animation.add("d_walk", [4, 5, 6, 7], 6);
+		animation.add("lr_walk", [8, 9, 10, 11], 6);
+		animation.add("u_walk", [0, 1, 2, 3], 6);
 
 		drag.x = drag.y = 800;
 	}
@@ -35,8 +35,8 @@ class Player extends FlxSprite {
 		var right:Bool = false;
 
 		up = FlxG.keys.anyPressed([UP, W]);
-		down = FlxG.keys.anyPressed([DOWN, S]);
 		left = FlxG.keys.anyPressed([LEFT, A]);
+		down = FlxG.keys.anyPressed([DOWN, S]);
 		right = FlxG.keys.anyPressed([RIGHT, D]);
 
 		if (up && down)
@@ -81,11 +81,11 @@ class Player extends FlxSprite {
 		switch (facing) {
 			case LEFT, RIGHT:
 				animation.play("lr_" + action);
-			case UP:
-				animation.play("u_" + action);
 			case DOWN:
 				animation.play("d_" + action);
-			default:
+			case UP:
+				animation.play("u_" + action);
+			case _:
 		}
 	}
 

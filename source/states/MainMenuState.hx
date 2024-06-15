@@ -1,6 +1,5 @@
 package states;
 
-import AssetPaths;
 import Sys;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -25,6 +24,7 @@ class MainMenuState extends FlxState {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, false, function() {
 			FlxG.switchState(new PlayState());
 		});
+		FlxG.sound.load("assets/sounds/click.wav");
 	}
 
 	static function QuitBTNCallBack() {
@@ -39,13 +39,14 @@ class MainMenuState extends FlxState {
 
 	static function OptionsBTNCallBack() {
 		FlxG.switchState(new OptionsState());
+		FlxG.sound.load("assets/sounds/click.wav");
 	}
 
 	override function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
 		super.create();
 
-		Game_Title = new FlxText(0, 90, FlxG.width, "untitled gaem", 22); // Centered horizontally
+		Game_Title = new FlxText(0, 90, FlxG.width, "cats!", 22); // Centered horizontally
 		Game_Title.alignment = CENTER;
 		add(Game_Title);
 

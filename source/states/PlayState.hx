@@ -27,6 +27,8 @@ class PlayState extends FlxState {
 
 		player.x = player_centerX;
 		player.y = player_centerY;
+
+		player.facing = DOWN;
 	}
 
 	override public function update(elapsed:Float) {
