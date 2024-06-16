@@ -4,10 +4,9 @@ import entities.Player;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.util.FlxColor;
-import states.PausedState; // substate
 
 class PlayState extends FlxState {
-	public static var player:Player;
+	public var player:Player;
 
 	var player_centerX:Float;
 	var player_centerY:Float;
@@ -35,8 +34,8 @@ class PlayState extends FlxState {
 		super.update(elapsed);
 
 		if (FlxG.keys.justPressed.ESCAPE) {
-			final pausedState = new PausedState();
-			openSubState(pausedState);
+			var pauseState:PauseState = new PauseState(this);
+			FlxG.switchState(pauseState);
 		}
 	}
 }
