@@ -27,4 +27,4 @@ jobs:
           
 
       - name: Compile HaxeFlixel Project
-        run: haxelib run lime test linux -debug
+        run: haxelib run lime build linux -debug
