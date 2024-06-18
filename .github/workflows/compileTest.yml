@@ -22,7 +22,6 @@ jobs:
         run: | 
           haxelib install flixel
           haxelib install lime
-          haxelib install flixel
           haxelib run lime setup flixel
           
 
