@@ -1,0 +1,25 @@
+name: compile haxeflixel code test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Haxe
+        uses: haxelibs/setup-haxe@v1
+        with:
+          haxe-version: 4.2.5
+
+      - name: Install Haxelib Dependencies
+        run: haxelib install flixel
+
+      - name: Compile HaxeFlixel Project
+        run: lime test linux -debug
