@@ -3,11 +3,12 @@ package states;
 import entities.Player;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.addons.editors.ogmo.FlxOgmo3Loader;
+import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState {
 	var player:Player;
-
 	var player_centerX:Float;
 	var player_centerY:Float;
 
@@ -39,4 +40,10 @@ class PlayState extends FlxState {
 			openSubState(pauseState);
 		}
 	}
+
+	// function placeEntities(entity:EntityData) {
+	// 	if (entity.name == "player") {
+	// 		player.setPosition(entity.x, entity.y);
+	// 	}
+	// }
 }
