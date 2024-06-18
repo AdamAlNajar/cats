@@ -1,7 +1,6 @@
 package states;
 
 import entities.Player;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader;
@@ -10,13 +9,12 @@ import flixel.util.FlxColor;
 
 class PlayState extends FlxState {
 	var player:Player;
-	var player_centerX:Float;
-	var player_centerY:Float;
 
 	var map:FlxOgmo3Loader;
 	var BG:FlxTilemap;
 	var decor:FlxTilemap;
 	var collide:FlxTilemap;
+	var collide_small:FlxTilemap;
 
 	override public function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
@@ -36,7 +34,9 @@ class PlayState extends FlxState {
 		decor.follow();
 		add(decor);
 
-		collide = map.loadTilemap("assets/images/tilesets/str_c.png", "collide");
+		collide = map.loadTilemap("assets/images/collision.png", "collide");
+
+		collide_small = map.loadTilemap("assets/images/small_collision.png", "collide_small");
 
 		player = new Player();
 		map.loadEntities(placeEntites, "ent");
@@ -44,30 +44,28 @@ class PlayState extends FlxState {
 
 		FlxG.camera.follow(player, TOPDOWN, 1);
 
-		player_centerX = (FlxG.width - player.width) / 2;
-		player_centerY = (FlxG.height - player.height) / 2;
+		persistentDraw = false;
 
-		player.x = player_centerX;
-		player.y = player_centerY;
+		player.facing = UP;
+	}
 
-		player.facing = DOWN;
+	public function placeEntites(entity:EntityData) {
+		if (entity.name == "player") {
+			trace('found player');
+			player.setPosition(entity.x, entity.y);
+			trace(entity.name, player.x, entity.y);
+		}
 	}
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 		FlxG.collide(player, collide);
+		FlxG.collide(player, collide_small);
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
 			pauseState.persistentDraw = false;
 			openSubState(pauseState);
-		}
-	}
-
-	public function placeEntites(entity:EntityData) {
-		if (entity.name == "player") {
-			player.x = entity.x;
-			player.y = entity.y;
 		}
 	}
 }
