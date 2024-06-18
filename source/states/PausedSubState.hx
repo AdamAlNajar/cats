@@ -10,11 +10,18 @@ class PausedSubState extends FlxSubState {
 	override function create() {
 		super.create();
 
-		PauseText = new FlxText(0, 0, FlxG.width, "PAUSED!", 24);
-		PauseText.alignment = CENTER;
-		PauseText.x = (FlxG.width - PauseText.width) / 2;
-		PauseText.y = (FlxG.height - PauseText.height) / 2;
+		PauseText = new FlxText(0, 0, 0, "PAUSED!", 24);
+		PauseText.alignment = "center";
 		add(PauseText);
+
+		updateTextPos();
+	}
+
+	function updateTextPos() {
+		var camera = FlxG.camera; // Get the current camera
+
+		PauseText.x = camera.scroll.x + (camera.width - PauseText.width) / 2;
+		PauseText.y = camera.scroll.y + (camera.height - PauseText.height) / 2;
 	}
 
 	override public function update(elapsed:Float) {

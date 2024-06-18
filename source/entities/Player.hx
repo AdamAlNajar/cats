@@ -15,7 +15,7 @@ class Player extends FlxSprite {
 		setFacingFlip(LEFT, true, false);
 		setFacingFlip(RIGHT, false, false);
 
-		setSize(8, 8);
+		setSize(16, 16);
 		offset.set(4, 8);
 
 		animation.add("d_idle", [4]);

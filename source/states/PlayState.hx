@@ -21,7 +21,7 @@ class PlayState extends FlxState {
 	override public function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
 		FlxG.autoPause = false;
-		FlxG.camera.zoom = 2;
+		FlxG.camera.zoom = 1.5;
 
 		super.create();
 
