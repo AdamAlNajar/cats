@@ -19,7 +19,8 @@ jobs:
             haxe-version: 4.3.1
 
       - name: Install Haxelib Dependencies
-        run: haxelib install flixel
+        run: | 
+          haxelib install flixel
           haxelib install lime
           haxelib install flixel
           haxelib run lime setup flixel
