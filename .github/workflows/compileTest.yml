@@ -14,12 +14,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Haxe
-        uses: haxelibs/setup-haxe@v1
-        with:
-          haxe-version: 4.2.5
+        uses: krdlab/setup-haxe@v1.5.1
+        with: 
+            haxe-version: 4.3.1
 
       - name: Install Haxelib Dependencies
         run: haxelib install flixel
+          haxelib install lime
+          haxelib install flixel
+          haxelib run lime setup flixel
+          
 
       - name: Compile HaxeFlixel Project
         run: lime test linux -debug
