@@ -6,7 +6,7 @@ import flixel.FlxState;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState {
-	public var player:Player;
+	var player:Player;
 
 	var player_centerX:Float;
 	var player_centerY:Float;
@@ -18,7 +18,7 @@ class PlayState extends FlxState {
 		super.create();
 
 		// Create the player sprite
-		player = new Player(0, 0);
+		player = new Player(20, 20);
 		add(player);
 
 		player_centerX = (FlxG.width - player.width) / 2;
@@ -34,8 +34,9 @@ class PlayState extends FlxState {
 		super.update(elapsed);
 
 		if (FlxG.keys.justPressed.ESCAPE) {
-			var pauseState:PauseState = new PauseState(this);
-			FlxG.switchState(pauseState);
+			var pauseState = new PausedSubState();
+			pauseState.persistentDraw = false;
+			openSubState(pauseState);
 		}
 	}
 }
