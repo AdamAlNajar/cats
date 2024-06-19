@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import states.OptionsState;
+import utils.DSCRPCManager;
 
 class MainMenuState extends FlxState {
 	public static var playBTN:FlxButton;
@@ -44,6 +45,7 @@ class MainMenuState extends FlxState {
 
 	override function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
+		Discord.changePresence("No Details to show", "Currently In The Main Menu");
 		super.create();
 
 		Game_Title = new FlxText(0, 90, FlxG.width, "cats!", 22); // Centered horizontally

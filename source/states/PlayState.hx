@@ -1,14 +1,17 @@
 package states;
 
+import entities.Cat;
 import entities.Player;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
+import utils.DSCRPCManager;
 
 class PlayState extends FlxState {
 	var player:Player;
+	var cat:Cat;
 
 	var map:FlxOgmo3Loader;
 	var BG:FlxTilemap;
@@ -20,6 +23,7 @@ class PlayState extends FlxState {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
 		FlxG.autoPause = false;
 		FlxG.camera.zoom = 1.5;
+		Discord.changePresence("No Details to show", "Currently In Game");
 
 		super.create();
 
@@ -54,6 +58,12 @@ class PlayState extends FlxState {
 			trace('found player');
 			player.setPosition(entity.x, entity.y);
 			trace(entity.name, player.x, entity.y);
+		}
+
+		if (entity.name == "cat") {
+			trace('found cat');
+			cat = new Cat(entity.x, entity.y);
+			add(cat);
 		}
 	}
 
