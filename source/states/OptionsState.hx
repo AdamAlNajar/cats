@@ -7,6 +7,7 @@ import flixel.ui.FlxBar;
 import flixel.ui.FlxButton;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import utils.DSCRPCManager;
 
 class OptionsState extends FlxState {
 	// define our screen elements
@@ -77,6 +78,7 @@ class OptionsState extends FlxState {
 
 		FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
+		Discord.changePresence("No Details to show", "Currently In The Options Menu");
 		super.create();
 	}
 

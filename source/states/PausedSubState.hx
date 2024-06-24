@@ -3,6 +3,7 @@ package states;
 import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
+import utils.DSCRPCManager.Discord;
 
 class PausedSubState extends FlxSubState {
 	public var PauseText:FlxText;
@@ -29,7 +30,7 @@ class PausedSubState extends FlxSubState {
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			close();
-			trace('closed substate : pause');
+			Discord.changePresence("No Details to show", "Currently in game");
 		}
 	}
 }

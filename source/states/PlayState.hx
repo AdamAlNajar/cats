@@ -72,8 +72,14 @@ class PlayState extends FlxState {
 		FlxG.collide(player, collide);
 		FlxG.collide(player, collide_small);
 
+		FlxG.collide(cat, collide);
+		FlxG.collide(cat, collide_small);
+
+		FlxG.collide(player, cat);
+
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
+			Discord.changePresence("Details to Show : Paused", "Currently In Game But Paused");
 			pauseState.persistentDraw = false;
 			openSubState(pauseState);
 		}

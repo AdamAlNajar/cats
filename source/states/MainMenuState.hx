@@ -32,7 +32,7 @@ class MainMenuState extends FlxState {
 		#if cpp
 		Sys.exit(0);
 		#elseif neko
-		Sys.exit(0)
+		Sys.exit(0);
 		#else
 		trace("quit not supported on this platform");
 		#end
