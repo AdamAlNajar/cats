@@ -24,6 +24,7 @@ jobs:
           haxelib install lime
           haxelib install openfl
           haxelib run lime setup flixel
+          haxelib install hxdiscord_rpc
           
 
       - name: Compile HaxeFlixel Project

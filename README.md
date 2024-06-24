@@ -1,5 +1,9 @@
 # Cats! - The Cat Game of the Future
 
+## Notice :
+This Project has optional Uses for the hxdiscord_rpc haxe library, if u wish to use them just know that u need a app for that
+builds now also might show as failing but im too lazy to update the workflow to match the changes
+---
 
 ### Note :
 This game is $2 on itch.io, but if you are here you can get it for free, The guide for that is [here](https://gitlab.com/aaa.dev/cats/-/blob/main/Compiling.md?ref_type=heads) But please, if you like it, buy it. It helps a lot.
