@@ -1,37 +1,31 @@
-# Cats! - The Cat Game of the Future
+# Cats! - A silly gaem about cats
 
-## Notice :
-This Project has optional Uses for the hxdiscord_rpc haxe library, if u wish to use them just know that u need a app for that
-builds now also might show as failing but im too lazy to update the workflow to match the changes
----
+## Overview
+This is just a silly gaem where you can play with cats, and annoy them or anything really... 
 
-### Note :
-This game is $2 on itch.io, but if you are here you can get it for free, The guide for that is [here](https://gitlab.com/aaa.dev/cats/-/blob/main/Compiling.md?ref_type=heads) But please, if you like it, buy it. It helps a lot.
+### Note:
+While this game is priced at $2 on itch.io, you can obtain it for free by following the instructions [here](https://gitlab.com/aaa.dev/cats/-/blob/main/Compiling.md?ref_type=heads). If you enjoy the game, consider supporting me by purchasing it, as every purchase contributes significantly.
 
----
-
-## What is this Game about?
-
-The main idea is simple, but first some backstory :
-- You are a middle-aged man on social media, and you like cats. 
-- Your wife divorced you for _"totally"_ unknown reasons.
-
-Your objective is to take as many pictures of cats on the streets of your city, and the cuter the pictures are, the more money you get.
-
-i wont spoil more...
+## Features
+- Explore your city and photograph adorable cats.
+- Earn money based on the cuteness of your cat pictures.
+- Discover surprises as you progress through the game.
 
 ## Credits
-- Programming : Adam Al Najar (@AdamNajar)
-- Art : My sister + [this pack on opengameart](https://opengameart.org/content/zelda-like-tilesets-and-sprites)
-- Framework(s) / Software used : 
-    - [Haxeflixel](https://haxeflixel.com)
-    - [LDtk](https://ldtk.io/)
+- **Programming:** Adam Al Najar (@AdamAlNajar)
+- **Art:** Created by my sister and supplemented by [this pack on OpenGameArt](https://opengameart.org/content/zelda-like-tilesets-and-sprites).
+- **Frameworks / Software used:** 
+  - [Haxeflixel](https://haxeflixel.com)
+  - [Ogmo](https://ogmo-editor-3.github.io/)
 
-## Creating modded versions of this game
-if you randomly feel like making this game your own, you can do so by editing the code. 
+## Modding
+Feel free to modify the game to suit your preferences or creativity. If you create your own version or mod, share it with me via email at adam.alnajar.10@gmail.com for a chance to have it reviewed on my channel.
 
-I would love to see your mods, so if you want me to review them on my channel then send me a copy on my email. (adam.alnajar.10@gmail.com)
+## Feedback
+Have ideas for additional sections or features? Reach out to me to share your thoughts!
 
-> If you have any idea what more sections should i add, tell me pls...
+---
 
-# Thank you for reading this - Adam Al Najar
+### Thank you for reading this - Adam Al Najar
+
+---
