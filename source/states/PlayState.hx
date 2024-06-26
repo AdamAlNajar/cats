@@ -5,13 +5,14 @@ import entities.Player;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.editors.ogmo.FlxOgmo3Loader;
+import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import utils.DSCRPCManager;
 
 class PlayState extends FlxState {
 	var player:Player;
-	var cat:Cat;
+	var cats = new FlxTypedGroup<Cat>(20);
 
 	var map:FlxOgmo3Loader;
 	var BG:FlxTilemap;
@@ -51,6 +52,9 @@ class PlayState extends FlxState {
 		persistentDraw = false;
 
 		player.facing = UP;
+		player.immovable = true;
+
+		add(cats);
 	}
 
 	public function placeEntites(entity:EntityData) {
@@ -61,9 +65,9 @@ class PlayState extends FlxState {
 		}
 
 		if (entity.name == "cat") {
-			trace('found cat');
-			cat = new Cat(entity.x, entity.y);
-			add(cat);
+			var cat = new Cat(entity.x, entity.y);
+			cat.immovable = true;
+			cats.add(cat);
 		}
 	}
 
@@ -72,10 +76,10 @@ class PlayState extends FlxState {
 		FlxG.collide(player, collide);
 		FlxG.collide(player, collide_small);
 
-		FlxG.collide(cat, collide);
-		FlxG.collide(cat, collide_small);
+		FlxG.collide(cats, collide);
+		FlxG.collide(cats, collide_small);
 
-		FlxG.collide(player, cat);
+		FlxG.collide(player, cats);
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
