@@ -4,6 +4,7 @@ So, instead of paying 2USD you decided to work, just to compile a stupid game? W
 ## dependencies
 - Haxe (https://haxe.org)
 - Haxeflixel (https://haxeflixel.com)
+- hxdiscord_rpc (haxelib install hxdiscord_rpc) or the git ver. (haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc.git)
 
 
 so, these are the things that you **need** to compile the game. (AKA dependencies)
@@ -13,6 +14,13 @@ so, these are the things that you **need** to compile the game. (AKA dependencie
 2. Extract the zip so that the structure looks something like this : (cats-main -> game files here)
 3. open the terminal in your newly extracted cats-main. 
 4. run this command `lime test windows` if you are on windows, and this applies to mac and linux.
+
+### Note :
+you can only compile to the platform that you are on. 
+so if you are on mac u can only compile to mac.
+and compiling to web is no longer supported due to the discord rpc
+also, there are no mod players, just compile and play with the assets, code wtv u want 
+just dont forget to credit this game.
 
 ## what now? 
 So, if you liked the game you can find a build of it in the `export` folder in the game files
