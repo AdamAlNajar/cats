@@ -19,7 +19,7 @@ While this game is priced at $2 on itch.io, you can obtain it for free by follow
   - [Ogmo](https://ogmo-editor-3.github.io/)
 
 ## Modding
-Feel free to modify the game to suit your preferences or creativity. If you create your own version or mod, share it with me via email at adam.alnajar.10@gmail.com for a chance to have it reviewed on my channel.
+Feel free to modify the game to suit your preferences or creativity. If you create your own version or mod, share it with me via email at adam.alnajar.10@gmail.com for a chance to have it reviewed on my channel. If you need a guide on how to make a mod, check out compiling.md
 
 ## Feedback
 Have ideas for additional sections or features? Reach out to me to share your thoughts!
