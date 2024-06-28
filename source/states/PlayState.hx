@@ -52,7 +52,6 @@ class PlayState extends FlxState {
 		persistentDraw = false;
 
 		player.facing = UP;
-		player.immovable = true;
 
 		add(cats);
 	}
@@ -66,20 +65,25 @@ class PlayState extends FlxState {
 
 		if (entity.name == "cat") {
 			var cat = new Cat(entity.x, entity.y);
-			cat.immovable = true;
 			cats.add(cat);
 		}
 	}
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
-		FlxG.collide(player, collide);
+
 		FlxG.collide(player, collide_small);
+		FlxG.collide(player, collide);
 
 		FlxG.collide(cats, collide);
 		FlxG.collide(cats, collide_small);
 
 		FlxG.collide(player, cats);
+		if (FlxG.collide(player, cats)) {
+			player.immovable = true;
+		} else {
+			player.immovable = false;
+		}
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();

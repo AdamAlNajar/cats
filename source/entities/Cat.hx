@@ -29,7 +29,7 @@ class Cat extends FlxSprite {
 
 	function updateMovement() {
 		actionInterval++;
-		if (actionInterval >= 120) {
+		if (actionInterval >= 100) {
 			var i:Int = Std.random(100);
 
 			if (i <= 25) {
