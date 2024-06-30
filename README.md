@@ -4,7 +4,7 @@
 This is just a silly gaem where you can play with cats, and annoy them or anything really... 
 
 ### Note:
-While this game is priced at $2 on itch.io, you can obtain it for free by following the instructions [here](https://gitlab.com/aaa.dev/cats/-/blob/main/Compiling.md?ref_type=heads). If you enjoy the game, consider supporting me by purchasing it, as every purchase contributes significantly.
+While this game is priced at $2 on itch.io, you can obtain it for free by following the instructions [here](https://github.com/AdamAlNajar/cats/blob/main/Compiling.md). If you enjoy the game, consider supporting me by purchasing it, as every purchase contributes significantly.
 
 ## Features
 - Explore your city and photograph adorable cats.
