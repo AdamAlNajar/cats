@@ -1,4 +1,4 @@
-name: compile haxeflixel code test
+name: Compile test 
 
 on:
   push:
@@ -27,5 +27,5 @@ jobs:
           haxelib install hxdiscord_rpc
           
 
-      - name: Compile HaxeFlixel Project
+      - name: Compile
         run: haxelib run lime build linux -debug
