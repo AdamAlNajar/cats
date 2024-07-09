@@ -81,6 +81,10 @@ class PlayState extends FlxState {
 		FlxG.collide(player, cats);
 		if (FlxG.collide(player, cats)) {
 			player.immovable = true;
+			if (FlxG.keys.justPressed.E){
+				var dialogstate = new DialogSubState();
+				openSubState(dialogstate);
+			}
 		} else {
 			player.immovable = false;
 		}

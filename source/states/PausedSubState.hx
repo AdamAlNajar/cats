@@ -26,7 +26,7 @@ class PausedSubState extends FlxSubState {
 	}
 
 	override public function update(elapsed:Float) {
-		super.update(elapsed);
+		super.update(elapsed/2);
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			close();

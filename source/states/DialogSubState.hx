@@ -14,10 +14,14 @@ class DialogSubState extends FlxSubState {
     override function create() {
         super.create();
 
-        dialogText = new FlxText(50, 50, FlxG.width - 100, "");
+        dialogText = new FlxText(50, 50, FlxG.width - 100, "TEST");
         add(dialogText);
 
         dialogLines = [];
         currentIndex = 0;
+    }
+
+    override function update(elapsed:Float) {
+        super.update(elapsed);
     }
 }
