@@ -20,7 +20,6 @@ class PlayState extends FlxState {
 	var collide:FlxTilemap;
 	var collide_small:FlxTilemap;
 
-	var catDialogTest:Dynamic = DialogSubState.DialogueLoader.loadDialogue("assets/data/catdialog.json");
 	
 
 	override public function create() {
@@ -55,9 +54,9 @@ class PlayState extends FlxState {
 		persistentDraw = false;
 
 		player.facing = UP;
+		player.immovable = false;
 
 		add(cats);
-		trace(catDialogTest);
 	}
 
 	public function placeEntites(entity:EntityData) {
@@ -82,18 +81,18 @@ class PlayState extends FlxState {
 		FlxG.collide(cats, collide);
 		FlxG.collide(cats, collide_small);
 
-		FlxG.collide(player, cats);
-		if (FlxG.collide(player, cats)) {
+		// By Galo from haxe disc
+		FlxG.collide(player, cats, (player, cat) -> 
+		{
 			player.immovable = true;
-		} else {
-			player.immovable = false;
-		}
 
-		if (FlxG.keys.justPressed.E){
-			var dialogstate = new DialogSubState();
-			openSubState(dialogstate);
-			trace("opened dialog");
-		}
+			if (FlxG.keys.justPressed.E)
+			{
+				openSubState(new DialogSubState());
+			}
+		});
+
+
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
@@ -101,5 +100,10 @@ class PlayState extends FlxState {
 			pauseState.persistentDraw = false;
 			openSubState(pauseState);
 		}
+	}
+
+	public function catplayercoll(player:Player, cats:Cat) {
+		player.immovable = true;
+		cats.immovable = true;
 	}
 }

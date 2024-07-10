@@ -20,6 +20,8 @@ class Cat extends FlxSprite {
 			setFacingFlip(RIGHT, false, false); */
 
 		drag.x = drag.y = 800;
+		setSize(16,16);
+		
 	}
 
 	override function update(elapsed:Float) {
