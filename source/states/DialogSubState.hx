@@ -1,9 +1,18 @@
 package states;
 
+import haxe.Json;
+import haxe.Resource;
 import sys.io.FileInput;
 import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
+
+class DialogueLoader {
+    public static function loadDialogue(filename:String):Dynamic {
+        var jsonString:String = Resource.getString(filename);
+        return Json.parse(jsonString);
+    }
+}
 
 class DialogSubState extends FlxSubState {
 
@@ -19,6 +28,8 @@ class DialogSubState extends FlxSubState {
 
         dialogLines = [];
         currentIndex = 0;
+
+        persistentDraw = false;
     }
 
     override function update(elapsed:Float) {

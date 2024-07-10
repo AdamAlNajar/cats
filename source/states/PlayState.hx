@@ -20,6 +20,9 @@ class PlayState extends FlxState {
 	var collide:FlxTilemap;
 	var collide_small:FlxTilemap;
 
+	var catDialogTest:Dynamic = DialogSubState.DialogueLoader.loadDialogue("assets/data/catdialog.json");
+	
+
 	override public function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
 		FlxG.autoPause = false;
@@ -54,6 +57,7 @@ class PlayState extends FlxState {
 		player.facing = UP;
 
 		add(cats);
+		trace(catDialogTest);
 	}
 
 	public function placeEntites(entity:EntityData) {
@@ -81,12 +85,14 @@ class PlayState extends FlxState {
 		FlxG.collide(player, cats);
 		if (FlxG.collide(player, cats)) {
 			player.immovable = true;
-			if (FlxG.keys.justPressed.E){
-				var dialogstate = new DialogSubState();
-				openSubState(dialogstate);
-			}
 		} else {
 			player.immovable = false;
+		}
+
+		if (FlxG.keys.justPressed.E){
+			var dialogstate = new DialogSubState();
+			openSubState(dialogstate);
+			trace("opened dialog");
 		}
 
 		if (FlxG.keys.justPressed.ESCAPE) {
