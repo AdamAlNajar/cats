@@ -10,6 +10,7 @@ class Cat extends FlxSprite {
 	static inline var SPEED:Float = 300;
 
 	var actionInterval:Int = 0;
+	public var shouldUpdate:Bool = true;
 
 	public function new(x:Float = 0, y:Float = 0) {
 		super(x, y);
@@ -25,8 +26,10 @@ class Cat extends FlxSprite {
 	}
 
 	override function update(elapsed:Float) {
-		super.update(elapsed);
-		updateMovement();
+		if(shouldUpdate){
+			super.update(elapsed);
+			updateMovement();
+		}
 	}
 
 	function updateMovement() {

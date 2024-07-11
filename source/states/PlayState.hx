@@ -12,6 +12,7 @@ import utils.DSCRPCManager;
 
 class PlayState extends FlxState {
 	var player:Player;
+	var cat:Cat;
 	var cats = new FlxTypedGroup<Cat>(20);
 
 	var map:FlxOgmo3Loader;
@@ -56,6 +57,8 @@ class PlayState extends FlxState {
 		player.facing = UP;
 		player.immovable = false;
 
+
+
 		add(cats);
 	}
 
@@ -67,7 +70,8 @@ class PlayState extends FlxState {
 		}
 
 		if (entity.name == "cat") {
-			var cat = new Cat(entity.x, entity.y);
+			cat = new Cat(entity.x, entity.y);
+			cat.immovable = false;
 			cats.add(cat);
 		}
 	}
@@ -75,12 +79,15 @@ class PlayState extends FlxState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
+		trace(player.immovable);
+
 		FlxG.collide(player, collide_small);
 		FlxG.collide(player, collide);
 
 		FlxG.collide(cats, collide);
 		FlxG.collide(cats, collide_small);
 
+		player.immovable = false;
 		// By Galo from haxe disc
 		FlxG.collide(player, cats, (player, cat) -> 
 		{
@@ -92,18 +99,11 @@ class PlayState extends FlxState {
 			}
 		});
 
-
-
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
 			Discord.changePresence("Details to Show : Paused", "Currently In Game But Paused");
 			pauseState.persistentDraw = false;
 			openSubState(pauseState);
 		}
-	}
-
-	public function catplayercoll(player:Player, cats:Cat) {
-		player.immovable = true;
-		cats.immovable = true;
 	}
 }
