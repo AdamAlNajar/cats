@@ -8,6 +8,7 @@ import flixel.addons.editors.ogmo.FlxOgmo3Loader;
 import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
+import states.DialogSubState;
 import utils.DSCRPCManager;
 
 class PlayState extends FlxState {
@@ -52,12 +53,10 @@ class PlayState extends FlxState {
 
 		FlxG.camera.follow(player, TOPDOWN, 1);
 
-		persistentDraw = false;
+		persistentDraw = true;
 
 		player.facing = UP;
 		player.immovable = false;
-
-
 
 		add(cats);
 	}
@@ -95,7 +94,13 @@ class PlayState extends FlxState {
 
 			if (FlxG.keys.justPressed.E)
 			{
-				openSubState(new DialogSubState());
+				var dialogSubState = new DialogSubState();
+				openSubState(dialogSubState);
+
+				/**To do for next light year
+					check if dialog current index the same as last index,
+					if so then close the substate
+				**/
 			}
 		});
 
