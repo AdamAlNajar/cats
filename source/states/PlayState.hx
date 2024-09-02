@@ -97,7 +97,7 @@ class PlayState extends FlxState {
 				openSubState(dialogSubState);
 				trace("dialog substate with cat opened");
 				persistentDraw = true;
-				dialogSubState.dialogLines.push("miau");
+				dialogSubState.dialogLines.push("miau"); // THis line causes a huge error, i will try to fix it later
 			}
 		});
 
