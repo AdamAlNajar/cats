@@ -53,7 +53,6 @@ class PlayState extends FlxState {
 
 		FlxG.camera.follow(player, TOPDOWN, 1);
 
-		persistentDraw = true;
 
 		player.facing = UP;
 		player.immovable = false;
@@ -78,7 +77,7 @@ class PlayState extends FlxState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		trace(player.immovable);
+		//trace(player.immovable);
 
 		FlxG.collide(player, collide_small);
 		FlxG.collide(player, collide);
@@ -96,18 +95,16 @@ class PlayState extends FlxState {
 			{
 				var dialogSubState = new DialogSubState();
 				openSubState(dialogSubState);
-
-				/**To do for next light year
-					check if dialog current index the same as last index,
-					if so then close the substate
-				**/
+				trace("dialog substate with cat opened");
+				persistentDraw = true;
+				dialogSubState.dialogLines.push("miau");
 			}
 		});
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
 			Discord.changePresence("Details to Show : Paused", "Currently In Game But Paused");
-			pauseState.persistentDraw = false;
+			persistentDraw = false;
 			openSubState(pauseState);
 		}
 	}
