@@ -18,7 +18,6 @@ class DialogSubState extends FlxSubState {
     override function create() {
         super.create();
 
-        dialogLines = new Array<String>();
         currentIndex = 0;
 
         var boxWidth = 600;

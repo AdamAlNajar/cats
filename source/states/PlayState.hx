@@ -97,9 +97,14 @@ class PlayState extends FlxState {
 				openSubState(dialogSubState);
 				trace("dialog substate with cat opened");
 				persistentDraw = true;
-				dialogSubState.dialogLines.push("miau");
+				dialogSubState.dialogLines = new Array<String>();
+				dialogSubState.dialogLines.push("hello");
+				dialogSubState.dialogLines.push("miauuuu");
+				trace(dialogSubState.dialogLines);
 			}
 		});
+
+		
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			var pauseState = new PausedSubState();
