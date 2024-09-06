@@ -44,6 +44,8 @@ class DialogSubState extends FlxSubState {
             dialogText.text = dialogLines[currentIndex];
             trace(currentIndex);
             if(currentIndex > dialogLines.length -1){
+                dialogLines = [];
+                trace(dialogLines); // debug
                 close();
             }
         }

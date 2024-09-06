@@ -100,7 +100,7 @@ class PlayState extends FlxState {
 				dialogSubState.dialogLines = new Array<String>();
 				dialogSubState.dialogLines.push("hello");
 				dialogSubState.dialogLines.push("miauuuu");
-				trace(dialogSubState.dialogLines);
+				
 			}
 		});
 
