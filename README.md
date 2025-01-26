@@ -3,8 +3,8 @@
 ## Overview
 This is just a silly gaem where you can play with cats, and annoy them or anything really... 
 
-### Note:
-While this game is priced at $5 on https://adamalnajar.pages.dev , you can obtain it for free by following the instructions [here](https://github.com/AdamAlNajar/cats/blob/main/Compiling.md). If you enjoy the game, consider supporting me by purchasing it, as every purchase contributes significantly.
+### Note
+Game is currently in a state of active and inactive development due to the fact that i have board exams...
 
 ## Features
 - Explore your city and photograph adorable cats.
