@@ -14,11 +14,11 @@ class Discord {
 		if (initialized)
 			return;
 
-		var handlers:DiscordEventHandlers = DiscordEventHandlers.create();
+		var handlers:DiscordEventHandlers = new DiscordEventHandlers();
 		handlers.ready = cpp.Function.fromStaticFunction(onReady);
 		handlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
 		handlers.errored = cpp.Function.fromStaticFunction(onError);
-		RichPresence.Initialize("1252939790572326913", cpp.RawPointer.addressOf(handlers), 1, null);
+		RichPresence.Initialize("1252939790572326913", cpp.RawPointer.addressOf(handlers), true, null);
 
 		// Daemon Thread
 		Thread.create(function() {
@@ -39,7 +39,7 @@ class Discord {
 	}
 
 	public static function changePresence(details:String, state:String):Void {
-		var discordPresence:DiscordRichPresence = DiscordRichPresence.create();
+		var discordPresence:DiscordRichPresence =  new DiscordRichPresence();
 		discordPresence.details = details;
 		discordPresence.state = state;
 		discordPresence.largeImageKey = "icon";

@@ -14,14 +14,19 @@ class Cat extends FlxSprite {
 
 	public function new(x:Float = 0, y:Float = 0) {
 		super(x, y);
-		makeGraphic(16, 16, FlxColor.BLACK);
+		loadGraphic("assets/images/cat.png", true, 24, 20);
 
-		/* 
-			setFacingFlip(LEFT, true, false);
-			setFacingFlip(RIGHT, false, false); */
+		setFacingFlip(LEFT, true, false);
+		setFacingFlip(RIGHT, false, false);
+
+		setSize(24, 20);
+		offset.set(4, 8);
+
+		animation.add("d_idle", [0]);
+		animation.add("lr_idle", [2]);
+		animation.add("u_idle", [1]);
 
 		drag.x = drag.y = 800;
-		setSize(16,16);
 		
 	}
 
@@ -40,15 +45,23 @@ class Cat extends FlxSprite {
 			if (i <= 25) {
 				velocity.y = -SPEED; // Move up
 				velocity.x = 0;
+				facing = UP;
+				animation.play("u_idle");
 			} else if (i <= 50) {
 				velocity.y = SPEED; // Move down
 				velocity.x = 0;
+				facing = DOWN;
+				animation.play("d_idle");
 			} else if (i <= 75) {
 				velocity.x = -SPEED; // Move left
 				velocity.y = 0;
+				facing = LEFT;
+				animation.play("lr_idle");
 			} else {
 				velocity.x = SPEED; // Move right
 				velocity.y = 0;
+				facing = RIGHT;
+				animation.play("lr_idle");
 			}
 
 			actionInterval = 0; // Reset action interval
