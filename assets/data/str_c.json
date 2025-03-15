@@ -72,7 +72,56 @@
       "gridCellsY": 30,
       "entities": [
         {"name": "player", "id": 0, "_eid": "71671612", "x": 320, "y": 208, "originX": 0, "originY": 0},
-        {"name": "cat", "id": 1, "_eid": "78027827", "x": 320, "y": 160, "originX": 0, "originY": 0}
+        {
+          "name": "cat",
+          "id": 1,
+          "_eid": "78027827",
+          "x": 320,
+          "y": 160,
+          "originX": 0,
+          "originY": 0,
+          "values": {"isTutorialCat": true}
+        },
+        {
+          "name": "cat",
+          "id": 2,
+          "_eid": "78027827",
+          "x": 560,
+          "y": 336,
+          "originX": 0,
+          "originY": 0,
+          "values": {"isTutorialCat": false}
+        },
+        {
+          "name": "cat",
+          "id": 3,
+          "_eid": "78027827",
+          "x": 80,
+          "y": 48,
+          "originX": 0,
+          "originY": 0,
+          "values": {"isTutorialCat": false}
+        },
+        {
+          "name": "cat",
+          "id": 4,
+          "_eid": "78027827",
+          "x": 48,
+          "y": 432,
+          "originX": 0,
+          "originY": 0,
+          "values": {"isTutorialCat": false}
+        },
+        {
+          "name": "cat",
+          "id": 5,
+          "_eid": "78027827",
+          "x": 464,
+          "y": 192,
+          "originX": 0,
+          "originY": 0,
+          "values": {"isTutorialCat": false}
+        }
       ]
     }
   ]

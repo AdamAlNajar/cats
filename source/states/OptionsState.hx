@@ -19,19 +19,22 @@ class OptionsState extends FlxState {
 	var volumeUpButton:FlxButton;
 	var clearDataButton:FlxButton;
 	var backButton:FlxButton;
+	public static var fontPath = "assets/fonts/SpaceMono-Regular.ttf";
 	#if desktop
 	var fullscreenButton:FlxButton;
 	#end
 
 	override public function create():Void {
 		// setup and add our objects to the screen
-		titleText = new FlxText(0, 20, 0, "Options", 22);
+		titleText = new FlxText(0, 20, 0, "Options", 22,true);
 		titleText.alignment = CENTER;
+		titleText.font = fontPath;
 		titleText.screenCenter(FlxAxes.X);
 		add(titleText);
 
-		volumeText = new FlxText(0, titleText.y + titleText.height + 10, 0, "Volume", 8);
+		volumeText = new FlxText(0, titleText.y + titleText.height + 10, 0, "Volume", 8, true);
 		volumeText.alignment = CENTER;
+		volumeText.font = fontPath;
 		volumeText.screenCenter(FlxAxes.X);
 		add(volumeText);
 
@@ -51,12 +54,13 @@ class OptionsState extends FlxState {
 		volumeBar.createFilledBar(0xff464646, FlxColor.WHITE, true, FlxColor.WHITE);
 		add(volumeBar);
 
-		volumeAmountText = new FlxText(0, 0, 200, (FlxG.sound.volume * 100) + "%", 8);
+		volumeAmountText = new FlxText(0, 0, 200, (FlxG.sound.volume * 100) + "%", 8,true);
 		volumeAmountText.alignment = CENTER;
 		volumeAmountText.borderStyle = FlxTextBorderStyle.OUTLINE;
 		volumeAmountText.borderColor = 0xff464646;
 		volumeAmountText.y = volumeBar.y + (volumeBar.height / 2) - (volumeAmountText.height / 2);
 		volumeAmountText.screenCenter(FlxAxes.X);
+		volumeAmountText.font = fontPath;
 		add(volumeAmountText);
 
 		#if desktop

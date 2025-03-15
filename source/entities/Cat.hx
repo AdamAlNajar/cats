@@ -11,8 +11,9 @@ class Cat extends FlxSprite {
 
 	var actionInterval:Int = 0;
 	public var shouldUpdate:Bool = true;
+	public var isTutorialCat:Bool = false; // Flag to identify the tutorial cat
 
-	public function new(x:Float = 0, y:Float = 0) {
+	public function new(x:Float = 0, y:Float = 0, isTutorialCat:Bool = false) {
 		super(x, y);
 		loadGraphic("assets/images/cat.png", true, 24, 20);
 
@@ -27,6 +28,7 @@ class Cat extends FlxSprite {
 		animation.add("u_idle", [1]);
 
 		drag.x = drag.y = 800;
+		this.isTutorialCat = isTutorialCat;
 		
 	}
 

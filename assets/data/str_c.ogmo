@@ -133,7 +133,9 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "values": []
+      "values": [
+        {"name": "isTutorialCat", "definition": "Boolean", "display": 2, "defaults": false}
+      ]
     }
   ],
   "tilesets": [
