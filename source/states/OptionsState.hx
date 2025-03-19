@@ -23,6 +23,8 @@ class OptionsState extends FlxState {
 	#if desktop
 	var fullscreenButton:FlxButton;
 	#end
+	private var musicToggleBTN:FlxButton;
+    private var musicToggleTXT:FlxText;
 
 	override public function create():Void {
 		// setup and add our objects to the screen
@@ -32,7 +34,7 @@ class OptionsState extends FlxState {
 		titleText.screenCenter(FlxAxes.X);
 		add(titleText);
 
-		volumeText = new FlxText(0, titleText.y + titleText.height + 10, 0, "Volume", 8, true);
+		volumeText = new FlxText(0, titleText.y + titleText.height + 10, 0, "Master Volume", 8, true);
 		volumeText.alignment = CENTER;
 		volumeText.font = fontPath;
 		volumeText.screenCenter(FlxAxes.X);
@@ -83,6 +85,19 @@ class OptionsState extends FlxState {
 		FlxG.camera.fade(FlxColor.BLACK, 0.33, true);
 
 		Discord.changePresence("No Details to show", "Currently In The Options Menu");
+
+		// Music Toggle Button (matches other buttons)
+		musicToggleBTN = new FlxButton((FlxG.width / 2) - 45, backButton.y - 40, "", toggleMusic);
+		musicToggleBTN.loadGraphic("assets/images/button.png", true, 90, 20);
+		musicToggleBTN.onUp.sound = FlxG.sound.load("assets/sounds/click.wav");
+		add(musicToggleBTN);
+
+		// Music Toggle Text (placed over the button)
+		musicToggleTXT = new FlxText(musicToggleBTN.x, musicToggleBTN.y, musicToggleBTN.width, getMusicText());
+		musicToggleTXT.setFormat(fontPath, 8, FlxColor.BLACK, "center");
+		add(musicToggleTXT);
+
+
 		super.create();
 	}
 
@@ -144,4 +159,22 @@ class OptionsState extends FlxState {
 		volumeBar.value = volume;
 		volumeAmountText.text = volume + "%";
 	}
+
+	private function toggleMusic() {
+        MainMenuState.musicEnabled = !MainMenuState.musicEnabled;
+
+        // Stop or Play Music based on the setting
+        if (MainMenuState.musicEnabled) {
+            FlxG.sound.playMusic("assets/sounds/bgnew.wav", 1, true);
+        } else {
+            FlxG.sound.music.stop();
+        }
+
+        // Update button text
+        musicToggleTXT.text = getMusicText();
+    }
+
+    private function getMusicText():String {
+        return MainMenuState.musicEnabled ? "Music: ON" : "Music: OFF";
+    }
 }

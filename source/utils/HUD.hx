@@ -1,8 +1,6 @@
 package utils;
 
-import flixel.FlxCamera;
-import haxe.Int64;
-import flixel.FlxG;
+
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -15,6 +13,8 @@ class HUD extends FlxTypedGroup<FlxSprite>
     public var cooldownText:FlxText; // Cooldown UI
     var points = 0;
     public static var fontPath = "assets/fonts/SpaceMono-Regular.ttf";
+    public var timerText:FlxText;
+
 
     public function new() {
         super();
@@ -38,6 +38,17 @@ class HUD extends FlxTypedGroup<FlxSprite>
         cooldownText.borderSize = 2; // Thickness of the outline
         cooldownText.scrollFactor.set(0, 0);
         add(cooldownText);
+
+        // Timer display
+        timerText = new FlxText(0, 40, 0, "Time: 60", 12, true);
+        timerText.font = fontPath;
+        timerText.color = FlxColor.BLACK;
+        timerText.borderStyle = FlxTextBorderStyle.OUTLINE;
+        timerText.borderColor = FlxColor.WHITE;
+        timerText.borderSize = 2;
+        timerText.scrollFactor.set(0, 0);
+        add(timerText);
+
     }
 
     public function UpdatePoints() {
@@ -56,4 +67,14 @@ class HUD extends FlxTypedGroup<FlxSprite>
             cooldownText.text = "Ready to take a photo!";
         }
     }
+
+    public function updateTimer(timeLeft:Float):Void {
+        timerText.text = "Time: " + Math.ceil(timeLeft);
+    }
+
+    public function getPoints():Int {
+        return points;
+    }
+    
+    
 }

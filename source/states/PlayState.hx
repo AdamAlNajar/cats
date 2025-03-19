@@ -1,6 +1,7 @@
 package states;
 
-import flixel.text.FlxText;
+
+import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
@@ -41,6 +42,14 @@ class PlayState extends FlxState {
 	private var photoCooldown:Float = 2.0;
 	private var cooldownTimer:Float = 0;
 
+	//Game Variables
+	private var gameTime:Float = 60; // 60 seconds timer
+	private var gameOver:Bool = false;
+
+	//Sound Effects
+	var camShutterSound:FlxSound;
+	var gameOverSound:FlxSound;
+
 	override public function create() {
 		FlxG.camera.fade(FlxColor.BLACK, 0.54, true); // Fades IN
 		FlxG.autoPause = false;
@@ -55,6 +64,12 @@ class PlayState extends FlxState {
 		hud.camera = hudCam;
 
 		super.create();
+
+		FlxG.mouse.visible = false; // hide cursor
+
+		// SFX Init
+		camShutterSound = FlxG.sound.load("assets/sounds/shutter.wav", 0.4);
+		gameOverSound = FlxG.sound.load("assets/sounds/end.wav", 0.4);
 
 		// Map 1 initialization
 		map1 = new FlxOgmo3Loader("assets/data/str_c.ogmo", "assets/data/str_c.json");
@@ -130,7 +145,6 @@ class PlayState extends FlxState {
 		player.immovable = false;
 		// By Galo from haxe disc
 		// Cat collision Handler
-		// Cat collision Handler
 		FlxG.collide(player, normalCats, (player, cat) -> 
 		{
 			var currentCat:Cat = cast(cat, Cat);
@@ -160,14 +174,16 @@ class PlayState extends FlxState {
 	
 				// Initialize the dialog lines array
 				dialogSubState.dialogLines = [
-					"Miaow! Welcome to the world of cats!",
-					"Snap photos of us when we're on the screen. Each cat in the photo earns you points!",
-					"Use the arrow keys or WASD to move around. Easy, right?",
-					"Press Space to click a picture",
-					"Pro tip : Look for cats in various spots",
-					"Miaow! Go out there and capture some purr-fect moments!",
+					"Miaow! Welcome to the world of cat photography!",
+					"Your goal is simple: take as many cat pictures as you can before time runs out.",
+					"Walk up to a cat and press the Space key to take a photo. Each cat is worth 1 point!",
+					"Use the arrow keys or WASD to move around and find more cats.",
+					"Pro tip: Cats might be hiding in different spots—explore carefully!",
+					"The clock starts ticking once you finish this tutorial. Make every second count!",
+					"Miaow! Now go out there and capture some purr-fect moments!",
 					"FIN"
 				];
+				
 	
 				// Set the onFinish callback
 				dialogSubState.onFinish = function() {
@@ -181,6 +197,28 @@ class PlayState extends FlxState {
 				activateNormalCats();
 			}
 		});
+
+		// Start Ticking if tutorial cat has been talked to
+		if (!gameOver && tutorialCat == null) {
+			gameTime -= elapsed;
+			hud.updateTimer(gameTime); // Update HUD timer display
+			hud.pointsCounter.text = "Start!";
+	
+			if (gameTime <= 0) {
+				endGame();
+			}
+		}
+
+		if(tutorialCat == null && hud.getPoints() != 0){
+			var new_points = hud.getPoints();
+			hud.pointsCounter.text = 'Points: $new_points';
+		}
+
+		// Tell the player what to do. 
+		// Also dont allow the clock to tick if he did not talk to tutorial cat yet
+		if(tutorialCat != null){
+			hud.pointsCounter.text = "Walk up to the cat";
+		}
 
 
 		if (FlxG.keys.justPressed.ESCAPE) {
@@ -210,6 +248,15 @@ class PlayState extends FlxState {
 			takePhoto();
 		}
 	}
+	function endGame() {
+		gameOver = true;
+		gameOverSound.play();
+		FlxG.camera.fade(FlxColor.BLACK, 1, false, function() {
+			var endScreen = new GameOverState(hud.getPoints());
+			FlxG.switchState(endScreen);
+		});
+	}
+	
 
 	private function activateNormalCats():Void {
 		if (normalCats.members != null) {
@@ -223,55 +270,38 @@ class PlayState extends FlxState {
 		
 	}
 
-	private function takePhoto():Void
-	{
+	private function takePhoto():Void {
 		// Flash effect
 		flash.alpha = 1;
-		FlxTween.tween(flash, { alpha: 0 }, 0.2);
+		FlxTween.tween(flash, {alpha: 0}, 0.2);
+		camShutterSound.play();
 
-		// Calculate score
 		var catsInPhoto:Int = 0;
-		for (cat in normalCats)
-		{
-			// Check if the cat is within the camera's view
-			if (isCatInView(cat))
-			{
+
+		// Check for collision with a cat before awarding points
+		for (cat in normalCats) {
+			if (FlxG.overlap(player, cat)) {
 				catsInPhoto++;
 			}
 		}
 
-		// Add points based on the number of cats in the photo
-		if (catsInPhoto > 0)
-		{
+		// Award points only if at least one cat is in the photo and the player is colliding
+		if (catsInPhoto > 0) {
 			hud.UpdatePoints(); // Update HUD with new points
-		}
-		else
-		{
-			trace("No cats in the photo. Try again!");
-			// make it so that this is a hud element
+		} else {
+			var warning:DialogSubState = new DialogSubState();
+			openSubState(warning);
+			warning.camera = hudCam;
+			persistentDraw = true;
+
+			warning.dialogLines = [
+				"Please get close with a cat and then take a picture"
+			];
 		}
 
 		// Start the cooldown
 		canTakePhoto = false;
 		cooldownTimer = photoCooldown;
 	}
-
-	private function isCatInView(cat:Cat):Bool
-	{
-		// Get the camera's viewport bounds
-		var cameraX:Float = FlxG.camera.scroll.x;
-		var cameraY:Float = FlxG.camera.scroll.y;
-		var cameraWidth:Float = FlxG.camera.width;
-		var cameraHeight:Float = FlxG.camera.height;
-	
-		// Get the cat's position and size
-		var catX:Float = cat.x;
-		var catY:Float = cat.y;
-		var catWidth:Float = cat.width;
-		var catHeight:Float = cat.height;
-	
-		// Check if the cat is within the camera's view
-		return (catX + catWidth > cameraX && catX < cameraX + cameraWidth && // Horizontal check
-				catY + catHeight > cameraY && catY < cameraY + cameraHeight); // Vertical check
-	}
+		
 }
