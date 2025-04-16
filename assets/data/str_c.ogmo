@@ -134,7 +134,8 @@
       "nodeGhost": true,
       "tags": [],
       "values": [
-        {"name": "isTutorialCat", "definition": "Boolean", "display": 2, "defaults": false}
+        {"name": "isTutorialCat", "definition": "Boolean", "display": 2, "defaults": false},
+        {"name": "catType", "definition": "String", "display": 2, "defaults": "default", "maxLength": 0, "trimWhitespace": true}
       ]
     }
   ],

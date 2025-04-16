@@ -26,6 +26,7 @@ class Player extends FlxSprite {
 		animation.add("u_walk", [0, 1, 2, 3], 6);
 
 		drag.x = drag.y = 800;
+		this.solid = true;
 	}
 
 	function updateMovement() {
@@ -74,7 +75,7 @@ class Player extends FlxSprite {
 
 		var action = "idle";
 		// check if the player is moving, and not walking into walls
-		if ((velocity.x != 0 || velocity.y != 0) && touching == NONE) {
+		if ((velocity.x != 0 || velocity.y != 0)) {
 			action = "walk";
 		}
 

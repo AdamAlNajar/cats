@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
+import flixel.math.*;
 
 class Cat extends FlxSprite {
 	// for now its a square, when the artist wakes up she will work on it.
@@ -13,9 +14,17 @@ class Cat extends FlxSprite {
 	public var shouldUpdate:Bool = true;
 	public var isTutorialCat:Bool = false; // Flag to identify the tutorial cat
 
-	public function new(x:Float = 0, y:Float = 0, isTutorialCat:Bool = false) {
+
+	public function new(x:Float = 0, y:Float = 0, isTutorialCat:Bool = false, catType:String = "default") {
 		super(x, y);
-		loadGraphic("assets/images/cat.png", true, 24, 20);
+
+
+		var graphicPath:String = switch (catType) {
+			case "Black": "assets/images/cat_black.png";
+			default: "assets/images/cat.png";
+		}
+
+		loadGraphic(graphicPath, true, 24, 20);
 
 		setFacingFlip(LEFT, true, false);
 		setFacingFlip(RIGHT, false, false);
@@ -29,7 +38,7 @@ class Cat extends FlxSprite {
 
 		drag.x = drag.y = 800;
 		this.isTutorialCat = isTutorialCat;
-		
+		this.solid = true;
 	}
 
 	override function update(elapsed:Float) {
@@ -37,6 +46,8 @@ class Cat extends FlxSprite {
 			super.update(elapsed);
 			updateMovement();
 		}
+
+
 	}
 
 	function updateMovement() {

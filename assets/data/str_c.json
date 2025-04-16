@@ -80,7 +80,7 @@
           "y": 160,
           "originX": 0,
           "originY": 0,
-          "values": {"isTutorialCat": true}
+          "values": {"isTutorialCat": true, "catType": "default"}
         },
         {
           "name": "cat",
@@ -90,7 +90,7 @@
           "y": 336,
           "originX": 0,
           "originY": 0,
-          "values": {"isTutorialCat": false}
+          "values": {"isTutorialCat": false, "catType": "default"}
         },
         {
           "name": "cat",
@@ -100,7 +100,7 @@
           "y": 48,
           "originX": 0,
           "originY": 0,
-          "values": {"isTutorialCat": false}
+          "values": {"isTutorialCat": false, "catType": "Black"}
         },
         {
           "name": "cat",
@@ -110,7 +110,7 @@
           "y": 432,
           "originX": 0,
           "originY": 0,
-          "values": {"isTutorialCat": false}
+          "values": {"isTutorialCat": false, "catType": "Black"}
         },
         {
           "name": "cat",
@@ -120,7 +120,7 @@
           "y": 192,
           "originX": 0,
           "originY": 0,
-          "values": {"isTutorialCat": false}
+          "values": {"isTutorialCat": false, "catType": "default"}
         }
       ]
     }

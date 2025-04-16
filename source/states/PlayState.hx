@@ -1,6 +1,7 @@
 package states;
 
 
+import flixel.FlxObject;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
@@ -16,6 +17,7 @@ import flixel.util.FlxColor;
 import states.DialogSubState;
 import utils.DSCRPCManager;
 import utils.HUD;
+import flixel.math.*;
 
 class PlayState extends FlxState {
 
@@ -45,6 +47,7 @@ class PlayState extends FlxState {
 	//Game Variables
 	private var gameTime:Float = 60; // 60 seconds timer
 	private var gameOver:Bool = false;
+	private var shopOpened:Bool = false;
 
 	//Sound Effects
 	var camShutterSound:FlxSound;
@@ -84,20 +87,20 @@ class PlayState extends FlxState {
 		add(decor1);
 
 		collide1 = map1.loadTilemap("assets/images/collision.png", "collide");
+		collide1.setTileProperties(1, FlxObject);
 
 		collide_small1 = map1.loadTilemap("assets/images/small_collision.png", "collide_small");
-
+		collide_small1.setTileProperties(1, FlxObject);
 		// Player initialization
 		player = new Player();
 		map1.loadEntities(placeEntites, "ent");
-		add(player);
 
 		FlxG.camera.follow(player, TOPDOWN, 1);
 
 		player.facing = UP;
-		player.immovable = false;
 
 		add(normalCats);
+		add(player);
 		add(hud);
 
 		// Camera flash Initialization
@@ -115,8 +118,9 @@ class PlayState extends FlxState {
 	
 		if (entity.name == "cat") {
 			var isTutorialCat:Bool = entity.values.isTutorialCat;
-			var cat = new Cat(entity.x, entity.y, isTutorialCat);
-			cat.immovable = false;
+			var catType:String = entity.values.catType;
+			var cat = new Cat(entity.x, entity.y, isTutorialCat, catType);
+			cat.immovable = true;
 	
 			if (isTutorialCat)
 			{
@@ -136,67 +140,24 @@ class PlayState extends FlxState {
 
 		//trace(player.immovable);
 
-		FlxG.collide(player, collide_small1);
-		FlxG.collide(player, collide1);
+		trace(collide1.getTileIndex(Std.int(player.x / collide1.tileWidth), Std.int(player.y / collide1.tileHeight)));
+		trace(collide_small1.getTileIndex(Std.int(player.x / collide1.tileWidth), Std.int(player.y / collide1.tileHeight)));
+
+
+		FlxG.collide(player, collide_small1,onPlayerandWallCollide);
+		FlxG.collide(player, collide1,onPlayerandWallCollide);
 
 		FlxG.collide(normalCats, collide1);
 		FlxG.collide(normalCats, collide_small1);
 
-		player.immovable = false;
-		// By Galo from haxe disc
-		// Cat collision Handler
-		FlxG.collide(player, normalCats, (player, cat) -> 
-		{
-			var currentCat:Cat = cast(cat, Cat);
-	
-			// Only proceed if this is the tutorial cat and the tutorial hasn't been completed
-			if (currentCat.isTutorialCat && !tutorialCompleted)
-			{
-				// Handle cat facing direction based on player's facing direction
-				if (this.player.facing == RIGHT) {
-					currentCat.facing = LEFT;
-				}
-				if (this.player.facing == LEFT) {
-					currentCat.facing = RIGHT;
-				}
-				if (this.player.facing == UP) {
-					currentCat.facing = DOWN;
-				}
-				if (this.player.facing == DOWN) {
-					currentCat.facing = UP;
-				}
-	
-				// Open the dialog substate
-				var dialogSubState = new DialogSubState();
-				openSubState(dialogSubState);
-				dialogSubState.camera = hudCam;
-				persistentDraw = true;
-	
-				// Initialize the dialog lines array
-				dialogSubState.dialogLines = [
-					"Miaow! Welcome to the world of cat photography!",
-					"Your goal is simple: take as many cat pictures as you can before time runs out.",
-					"Walk up to a cat and press the Space key to take a photo. Each cat is worth 1 point!",
-					"Use the arrow keys or WASD to move around and find more cats.",
-					"Pro tip: Cats might be hiding in different spots—explore carefully!",
-					"The clock starts ticking once you finish this tutorial. Make every second count!",
-					"Miaow! Now go out there and capture some purr-fect moments!",
-					"FIN"
-				];
-				
-	
-				// Set the onFinish callback
-				dialogSubState.onFinish = function() {
-					if (tutorialCat != null) {
-						normalCats.remove(tutorialCat);
-						tutorialCat.destroy();
-						tutorialCat = null;
-					} 			
-				};
-
-				activateNormalCats();
+		for (cat in normalCats) {
+		if (FlxG.overlap(player, cat)) {
+			player.animation.stop();
+			if (cat.isTutorialCat && !tutorialCompleted) {
+				handleTutorialCat(cat);
 			}
-		});
+		}
+	}
 
 		// Start Ticking if tutorial cat has been talked to
 		if (!gameOver && tutorialCat == null) {
@@ -206,6 +167,14 @@ class PlayState extends FlxState {
 	
 			if (gameTime <= 0) {
 				endGame();
+			}
+
+			if (gameTime <= 30 && !shopOpened){
+				var shopSubState = new ShopSubState();
+				//persistentDraw = false;
+				openSubState(shopSubState);
+				shopSubState.camera = hudCam;
+				shopOpened = true;
 			}
 		}
 
@@ -239,14 +208,21 @@ class PlayState extends FlxState {
 			} 
 		}
 
+		for (cat in normalCats) {
+			cat.x = FlxMath.bound(cat.x, 0, collide1.width - cat.width);
+			cat.y = FlxMath.bound(cat.y, 0, collide1.height - cat.height);
+		}
+
 		// Update the HUD cooldown text
 		hud.UpdateCooldown(cooldownTimer, photoCooldown);
 		
 		// Check for photo capture input
-		if (FlxG.keys.justPressed.SPACE && canTakePhoto)
+		if (FlxG.keys.justPressed.SPACE && canTakePhoto && tutorialCompleted)
 		{
 			takePhoto();
 		}
+
+
 	}
 	function endGame() {
 		gameOver = true;
@@ -256,6 +232,42 @@ class PlayState extends FlxState {
 			FlxG.switchState(endScreen);
 		});
 	}
+
+	function handleTutorialCat(currentCat:Cat):Void {
+    // Make the cat face the player
+    if (player.facing == RIGHT) currentCat.facing = LEFT;
+    if (player.facing == LEFT) currentCat.facing = RIGHT;
+    if (player.facing == UP) currentCat.facing = DOWN;
+    if (player.facing == DOWN) currentCat.facing = UP;
+
+    var dialogSubState = new DialogSubState();
+    openSubState(dialogSubState);
+    dialogSubState.camera = hudCam;
+    persistentDraw = true;
+
+    dialogSubState.dialogLines = [
+        "Miaow! Welcome to the world of cat photography!",
+        "Your goal is simple: take as many cat pictures as you can before time runs out.",
+        "Walk up to a cat and press the Space key to take a photo. Each cat is worth 1 point!",
+        "Use the arrow keys or WASD to move around and find more cats.",
+        "Pro tip: Cats might be hiding in different spots—explore carefully!",
+        "The clock starts ticking once you finish this tutorial. Make every second count!",
+        "Miaow! Now go out there and capture some purr-fect moments!",
+        "FIN"
+    ];
+
+    dialogSubState.onFinish = function() {
+        if (tutorialCat != null) {
+            normalCats.remove(tutorialCat);
+            tutorialCat.destroy();
+            tutorialCat = null;
+        }
+    };
+
+    activateNormalCats();
+    tutorialCompleted = true;
+}
+
 	
 
 	private function activateNormalCats():Void {
@@ -269,6 +281,9 @@ class PlayState extends FlxState {
 		}
 		
 	}
+
+ 	function onPlayerandWallCollide(p:FlxObject,wall:FlxTilemap):Void {
+}
 
 	private function takePhoto():Void {
 		// Flash effect
@@ -304,4 +319,5 @@ class PlayState extends FlxState {
 		cooldownTimer = photoCooldown;
 	}
 		
+
 }

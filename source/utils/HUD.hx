@@ -11,9 +11,10 @@ class HUD extends FlxTypedGroup<FlxSprite>
 {
     public var pointsCounter:FlxText;
     public var cooldownText:FlxText; // Cooldown UI
-    var points = 0;
+    public static var points = 0;
     public static var fontPath = "assets/fonts/SpaceMono-Regular.ttf";
     public var timerText:FlxText;
+    public static var pointMultiplier:Int = 1;
 
 
     public function new() {
@@ -52,7 +53,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
     }
 
     public function UpdatePoints() {
-        points++;
+        points+= pointMultiplier;
         pointsCounter.text = 'Points: $points';
     }
 
