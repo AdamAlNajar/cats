@@ -25,6 +25,9 @@ class PlayState extends FlxState {
 	private var player:Player;
 	private var tutorialCat:Cat;
 	private var normalCats = new FlxTypedGroup<Cat>(20);
+	private var signposts = new FlxTypedGroup<FlxSprite>(2);
+
+
 
 	// HUD & UI Elements
 	private var hud:HUD;
@@ -86,6 +89,7 @@ class PlayState extends FlxState {
 		decor1.follow();
 		add(decor1);
 
+
 		collide1 = map1.loadTilemap("assets/images/collision.png", "collide");
 		collide1.setTileProperties(1, FlxObject);
 
@@ -132,6 +136,7 @@ class PlayState extends FlxState {
 			}
 	
 			normalCats.add(cat); // Add the cat to the normalCats group
+
 		}
 	}
 
@@ -140,19 +145,28 @@ class PlayState extends FlxState {
 
 		//trace(player.immovable);
 
-		trace(collide1.getTileIndex(Std.int(player.x / collide1.tileWidth), Std.int(player.y / collide1.tileHeight)));
-		trace(collide_small1.getTileIndex(Std.int(player.x / collide1.tileWidth), Std.int(player.y / collide1.tileHeight)));
-
-
-		FlxG.collide(player, collide_small1,onPlayerandWallCollide);
-		FlxG.collide(player, collide1,onPlayerandWallCollide);
+		FlxG.collide(player, collide_small1);
+		FlxG.collide(player, collide1);
 
 		FlxG.collide(normalCats, collide1);
 		FlxG.collide(normalCats, collide_small1);
 
+		// This part of the code basically checks if player is colliding with sign post,
+		//and if he presses e,
+		//the dialog lines appear.
+
+		var tileX = Std.int(player.x / decor1.tileWidth);
+		var tileY = Std.int(player.y / decor1.tileHeight);
+		var tileIndex = decor1.getTile(tileX,tileY);
+		if (tileIndex == 3 && FlxG.keys.justPressed.E) {
+			showSignpostDialog();
+		}
+
 		for (cat in normalCats) {
 		if (FlxG.overlap(player, cat)) {
 			player.animation.stop();
+			player.velocity.x = 0;
+			player.velocity.y = 0;
 			if (cat.isTutorialCat && !tutorialCompleted) {
 				handleTutorialCat(cat);
 			}
@@ -268,6 +282,15 @@ class PlayState extends FlxState {
     tutorialCompleted = true;
 }
 
+	private function showSignpostDialog():Void {
+		var dialog = new DialogSubState();
+		openSubState(dialog);
+		dialog.camera = hudCam;
+		persistentDraw = true;
+
+		dialog.dialogLines = ["Congrats on finding this bro"];
+	}
+
 	
 
 	private function activateNormalCats():Void {
@@ -281,9 +304,6 @@ class PlayState extends FlxState {
 		}
 		
 	}
-
- 	function onPlayerandWallCollide(p:FlxObject,wall:FlxTilemap):Void {
-}
 
 	private function takePhoto():Void {
 		// Flash effect
@@ -318,6 +338,4 @@ class PlayState extends FlxState {
 		canTakePhoto = false;
 		cooldownTimer = photoCooldown;
 	}
-		
-
 }

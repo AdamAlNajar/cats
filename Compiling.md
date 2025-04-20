@@ -18,7 +18,7 @@ so, these are the things that you **need** to compile the game. (AKA dependencie
 ### Note :
 you can only compile to the platform that you are on. 
 so if you are on mac u can only compile to mac.
-and compiling to web is no longer supported due to the discord rpc
+and compiling to web is not supported due to the discord rpc
 also, there are no mod players, just compile and play with the assets, code wtv u want 
 just dont forget to credit this game.
 
