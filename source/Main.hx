@@ -4,6 +4,7 @@ import flixel.util.FlxSave;
 import openfl.display.Sprite;
 import states.MainMenuState;
 import utils.DSCRPCManager;
+import haxe.Json;
 
 class Main extends Sprite {
 	public function new() {

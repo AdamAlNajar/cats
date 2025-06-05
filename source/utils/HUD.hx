@@ -16,7 +16,6 @@ class HUD extends FlxTypedGroup<FlxSprite>
     public var timerText:FlxText;
     public static var pointMultiplier:Int = 1;
 
-
     public function new() {
         super();
 
@@ -53,7 +52,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
     }
 
     public function UpdatePoints() {
-        points+= pointMultiplier;
+        points += pointMultiplier;
         pointsCounter.text = 'Points: $points';
     }
 
